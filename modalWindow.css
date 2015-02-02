@@ -1,0 +1,28 @@
+/*
+    Author: Dmitriy Buyanov
+    License: MIT
+ */
+
+.modal-overlay {
+    position: absolute;
+    background: white;
+    opacity: 0.6;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.modal-window {
+    position: fixed;
+    min-height: 30px;
+    min-width: 200px;
+    background: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    color: black;
+    font-size: 15px;
+}
+
+.modal-content {
+    padding: 15px;
+}
