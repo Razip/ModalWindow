@@ -24,6 +24,16 @@ modal.getModalContentElement().style.fontSize = '25px';
 modal.show();
 ```
 
+# How to block and unblock a window?
+
+There're two ModalWindow's methods called block and unblock.
+
+```js
+var modal = new ModalWindow('You can\'t close this window.');
+
+modal.block().show();
+```
+
 # Where can I see examples?
 
 [Here](http://razip.github.io/ModalWindow/).
