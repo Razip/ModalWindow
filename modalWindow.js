@@ -1,131 +1,100 @@
 /*
- Author: Dmitriy Buyanov
- License: MIT
+    Author: Dmitriy Buyanov
+    License: MIT
  */
 
-function ModalWindow(content) {
-    this.windowLayout = document.createElement('div');
+function ModalWindow (content) {
+    this.locked = false;
+
+    this.layout = document.createElement('div');
+
     this.overlay = document.createElement('div');
-    this.modalWindow = document.createElement('div');
-    this.modalContent = document.createElement('div');
 
-    // You can use several listeners for the same event
-    // {eventName: [firstListener, secondListener]}
-    this.events = {};
+    this.window = document.createElement('div');
 
-    this.blocked = false;
+    this.content = document.createElement('div');
 
-    this.hide();
+    var context = this;
 
-    this.overlay.className = 'modal-overlay';
-    this.modalWindow.className = 'modal-window';
-    this.modalContent.className = 'modal-content';
+    (function () {
+        context.layout.style.display = 'none';
 
-    this.setContent(content);
+        context.overlay.className = 'modal-overlay';
 
-    this.modalWindow.appendChild(this.modalContent);
+        context.window.className = 'modal-window';
 
-    this.windowLayout.appendChild(this.overlay);
-    this.windowLayout.appendChild(this.modalWindow);
+        context.content.className = 'modal-content';
 
-    document.body.appendChild(this.windowLayout);
+        context.window.appendChild(context.content);
 
-    window.addEventListener('resize', this.resetPosition());
+        context.layout.appendChild(context.overlay);
 
-    this.overlay.onclick = (function (self) {
-        return function () {
-            self.close();
-        };
-    })(this);
+        context.layout.appendChild(context.window);
+
+        document.body.appendChild(context.layout);
+
+        context.setContent(content);
+
+        window.addEventListener('resize', function () {
+            context.resetPosition();
+        });
+
+        context.overlay.addEventListener('click', function () {
+            context.close();
+        });
+    })();
 }
 
-ModalWindow.prototype = {
-    // An interface of adding listeners
-    addEventListener: function (event, listener) {
-        if (event in this.events) {
-            this.events[event].push(listener);
-        } else {
-            this.events[event] = [listener];
-        }
-    },
+ModalWindow.prototype.show = function () {
+    this.layout.style.display = 'block';
 
-    // An interface of an event execution
-    executeEvent: function (event) {
-        if (event in this.events) {
-            for (var i = 0; i < this.events[event].length; i++) {
-                this.events[event][i]();
-            }
-        }
-    },
+    this.resetPosition();
 
-    resetPosition: function () {
-        this.modalWindow.style.left = Math.round((document.documentElement.clientWidth - this.modalWindow.offsetWidth) / 2) + 'px';
-        this.modalWindow.style.top = Math.round((document.documentElement.clientHeight - this.modalWindow.offsetHeight) / 2) + 'px';
-    },
+    return this;
+};
 
-    setContent: function (content) {
-        if (content.constructor === String) {
-            this.modalContent.innerHTML = content;
-        } else {
-            this.modalContent.appendChild(content);
-        }
+ModalWindow.prototype.hide = function () {
+    this.layout.style.display = 'none';
 
-        // When the size of a window changes we have to reset the position of a window
-        // because its width and height may changes
-        this.resetPosition();
+    return this;
+};
 
-        return this;
-    },
+ModalWindow.prototype.lock = function () {
+    this.locked = true;
 
-    show: function () {
-        this.windowLayout.style.display = 'block';
+    return this;
+};
 
-        this.resetPosition();
+ModalWindow.prototype.unlock = function () {
+    this.locked = false;
 
-        return this;
-    },
+    return this;
+};
 
-    hide: function () {
-        this.windowLayout.style.display = 'none';
-    },
+ModalWindow.prototype.close = function () {
+    if (!this.locked) {
+        this.layout.parentNode.removeChild(this.layout);
 
-    close: function () {
-        if (this.blocked) {
-            return;
-        }
-
-        this.windowLayout.parentNode.removeChild(this.windowLayout);
-
-        this.executeEvent('close');
-    },
-
-    block: function () {
-        this.blocked = true;
-
-        return this;
-    },
-
-    unblock: function () {
-        this.blocked = false;
-
-        return this;
-    },
-
-    // If you want to customize something you can use these getters-interfaces
-
-    getWindowLayoutElement: function () {
-        return this.windowLayout;
-    },
-
-    getOverlayElement: function () {
-        return this.overlay;
-    },
-
-    getModalWindowElement: function () {
-        return this.modalWindow;
-    },
-
-    getModalContentElement: function () {
-        return this.modalContent;
+        this.onClose();
     }
 };
+
+ModalWindow.prototype.resetPosition = function() {
+    var left = Math.round((document.documentElement.clientWidth - this.window.offsetWidth) / 2);
+
+    var top = Math.round((document.documentElement.clientHeight - this.window.offsetHeight) / 2);
+
+    this.window.style.left = left + 'px';
+
+    this.window.style.top = top + 'px';
+};
+
+ModalWindow.prototype.setContent = function (content) {
+    if (content.constructor === String || content.constructor === Number) {
+        this.content.innerHTML = content;
+    } else {
+        this.content.appendChild(content);
+    }
+};
+
+ModalWindow.prototype.onClose = function () {};

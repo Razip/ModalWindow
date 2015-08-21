@@ -1,39 +1,46 @@
-# What is it?
+# What it is?
 
-ModalWindow is a JavaScript open-source library that provides an interface of working with modal-windows (written by Dmitriy Buyanov). It uses pure JavaScript, so it doesn't depends on other libraries.
+ModalWindow is a JavaScript OpenSource library provides easy interface to work with modal windows (written by Dmitriy Buyanov). It has no dependencies and use pure JavaScript.
 
-# A simple using example
+# What the license is?
+
+Read LICENSE file.
+
+# Simple using example
 
 ```js
-new ModalWindow('A window').show()
+new ModalWindow('Hello').show()
 ```
 
-# How to customize a window?
+# How to customize my window?
 
-You can use following ModalWindow's methods:
-* getWindowLayoutElement()
-* getOverlayElement()
-* getModalWindowElement()
-* getModalContentElement()
+All ModalWindows have following fields:
+
+* layout - contains all the window's DOM-elements inside
+* overlay - makes black (by default) background behind a window
+* window - defines the window's appearance
+* content - defines the window's content appearance
+
+For example you want characters to be big at your window.
 
 ```js
-var modal = new ModalWindow('A window.');
+var modal = new ModalWindow('These are big letters.');
 
-modal.getModalContentElement().style.fontSize = '25px';
+modal.contentElement.style.fontSize = '35px';
 
 modal.show();
 ```
 
-# How to block and unblock a window?
-
-There're two ModalWindow's methods called block and unblock.
+# How to lock (and unlock) a window?
 
 ```js
-var modal = new ModalWindow('You can\'t close this window.');
+var window = new ModalWindow('It is impossible to close this window.');
 
-modal.block().show();
+window.lock();
+
+window.unlock();
 ```
 
 # Where can I see examples?
 
-[Here](http://razip.github.io/ModalWindow/).
+[There](http://razip.github.io/ModalWindow/).
