@@ -1,43 +1,40 @@
-function ModalWindow (content) {
+function ModalWindow(content) {
     this.locked = false;
 
+    // it contains all of the elements of a ModalWindow
     this.layout = document.createElement('div');
 
     this.overlay = document.createElement('div');
 
+    this.overlay.className = 'modal-overlay';
+
     this.window = document.createElement('div');
+
+    this.window.className = 'modal-window';
 
     this.content = document.createElement('div');
 
+    this.content.className = 'modal-content';
+
+    this.window.appendChild(this.content);
+
+    this.layout.appendChild(this.overlay);
+
+    this.layout.appendChild(this.window);
+
+    document.body.appendChild(this.layout);
+
+    this.setContent(content);
+
     var context = this;
 
-    (function () {
-        context.layout.style.display = 'none';
+    window.addEventListener('resize', function () {
+        context.resetPosition();
+    });
 
-        context.overlay.className = 'modal-overlay';
-
-        context.window.className = 'modal-window';
-
-        context.content.className = 'modal-content';
-
-        context.window.appendChild(context.content);
-
-        context.layout.appendChild(context.overlay);
-
-        context.layout.appendChild(context.window);
-
-        document.body.appendChild(context.layout);
-
-        context.setContent(content);
-
-        window.addEventListener('resize', function () {
-            context.resetPosition();
-        });
-
-        context.overlay.addEventListener('click', function () {
-            context.close();
-        });
-    })();
+    this.overlay.addEventListener('click', function () {
+        context.close();
+    });
 }
 
 ModalWindow.prototype.show = function () {
@@ -74,7 +71,7 @@ ModalWindow.prototype.close = function () {
     }
 };
 
-ModalWindow.prototype.resetPosition = function() {
+ModalWindow.prototype.resetPosition = function () {
     var left = Math.round((document.documentElement.clientWidth - this.window.offsetWidth) / 2);
 
     var top = Math.round((document.documentElement.clientHeight - this.window.offsetHeight) / 2);
@@ -85,13 +82,10 @@ ModalWindow.prototype.resetPosition = function() {
 };
 
 ModalWindow.prototype.setContent = function (content) {
-    if (content.constructor === String || content.constructor === Number) {
-        this.content.innerHTML = content;
-    } else {
-        this.content.appendChild(content);
-    }
+    this.content.innerHTML = content;
 
     this.resetPosition();
 };
 
-ModalWindow.prototype.onClose = function () {};
+ModalWindow.prototype.onClose = function () {
+};
