@@ -90,6 +90,8 @@ ModalWindow.prototype.setContent = function (content) {
     } else {
         this.content.appendChild(content);
     }
+
+    this.resetPosition();
 };
 
 ModalWindow.prototype.onClose = function () {};
