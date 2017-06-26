@@ -1,8 +1,3 @@
-/*
-    Author: Dmitriy Buyanov
-    License: MIT
- */
-
 function ModalWindow (content) {
     this.locked = false;
 
