@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    background: white;
+    color: black;
+    font-family: arial, sans-serif;
+    padding: 10px;
+}
+
+a {
+    color: gray;
+}
+
+ul {
+    margin: 10px 0 0 0;
+    padding: 0 0 0 25px;
+}
