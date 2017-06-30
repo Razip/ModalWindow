@@ -67,7 +67,7 @@ ModalWindow.prototype.close = function () {
     if (!this.locked) {
         this.layout.parentNode.removeChild(this.layout);
 
-        this.onClose();
+        this.onCloseCallback();
     }
 };
 
@@ -87,5 +87,10 @@ ModalWindow.prototype.setContent = function (content) {
     this.resetPosition();
 };
 
-ModalWindow.prototype.onClose = function () {
+ModalWindow.prototype.onCloseCallback = function () {
+};
+
+// an interface for setting onClose callbacks
+ModalWindow.prototype.onClose = function (callback) {
+    this.onCloseCallback = callback;
 };
