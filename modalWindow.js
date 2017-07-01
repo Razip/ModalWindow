@@ -142,15 +142,9 @@ ModalWindow.prototype.close = function () {
 };
 
 ModalWindow.prototype.centralize = function () {
-    // we unset the width for a while because it
-    // would break the calculations
-    this.window.style.width = '';
-
     var left = (document.documentElement.clientWidth - this.window.offsetWidth) / 2;
 
     var top = (document.documentElement.clientHeight - this.window.offsetHeight) / 2;
-
-    this.window.style.width = this.window.clientWidth + 'px';
 
     this.window.style.left = left + 'px';
 
@@ -169,6 +163,12 @@ ModalWindow.prototype.setContent = function (content, centralizeMovable, keepMov
     // we don't centralize a movable window until it's been asked
     if (!this.movable || this.movable && centralizeMovable) {
         this.content.innerHTML = content;
+
+        // we unset the width to get actual content's
+        // width, not the one we've set before
+        this.window.style.width = '';
+
+        this.window.style.width = this.window.clientWidth + 'px';
 
         this.centralize();
     } else {
@@ -190,13 +190,11 @@ ModalWindow.prototype.setContent = function (content, centralizeMovable, keepMov
             // similarly, we keep the ration until it's been asked to not
             this.content.innerHTML = content;
         }
+
+        this.window.style.width = '';
+
+        this.window.style.width = this.window.clientWidth + 'px';
     }
-
-    // we unset the width to get actual content's
-    // width, not the one we've set before
-    this.window.style.width = '';
-
-    this.window.style.width = this.window.clientWidth + 'px';
 };
 
 ModalWindow.prototype.onCloseCallback = function () {
