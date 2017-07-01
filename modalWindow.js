@@ -142,9 +142,15 @@ ModalWindow.prototype.close = function () {
 };
 
 ModalWindow.prototype.centralize = function () {
+    // we unset the width for a while because it
+    // would break the calculations
+    this.window.style.width = '';
+
     var left = (document.documentElement.clientWidth - this.window.offsetWidth) / 2;
 
     var top = (document.documentElement.clientHeight - this.window.offsetHeight) / 2;
+
+    this.window.style.width = this.window.clientWidth + 'px';
 
     this.window.style.left = left + 'px';
 
@@ -186,6 +192,8 @@ ModalWindow.prototype.setContent = function (content, centralizeMovable, keepMov
         }
     }
 
+    // we unset the width to get actual content's
+    // width, not the one we've set before
     this.window.style.width = '';
 
     this.window.style.width = this.window.clientWidth + 'px';
