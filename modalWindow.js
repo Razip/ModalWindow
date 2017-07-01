@@ -164,6 +164,12 @@ ModalWindow.prototype.setContent = function (content, centralizeMovable, keepMov
     if (!this.movable || this.movable && centralizeMovable) {
         this.content.innerHTML = content;
 
+        // we unset the width to get actual content's
+        // width, not the one we've set before
+        this.window.style.width = '';
+
+        this.window.style.width = this.window.clientWidth + 'px';
+
         this.centralize();
     } else {
         if (keepMovablesRation) {
@@ -184,11 +190,11 @@ ModalWindow.prototype.setContent = function (content, centralizeMovable, keepMov
             // similarly, we keep the ration until it's been asked to not
             this.content.innerHTML = content;
         }
+
+        this.window.style.width = '';
+
+        this.window.style.width = this.window.clientWidth + 'px';
     }
-
-    this.window.style.width = '';
-
-    this.window.style.width = this.window.clientWidth + 'px';
 };
 
 ModalWindow.prototype.onCloseCallback = function () {
