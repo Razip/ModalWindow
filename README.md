@@ -67,6 +67,8 @@ modal.allowMoving();
 
 # Setting a callback
 
+At the moment, the only event you can set a callback on is `onClose` which triggers when the window is closed.
+
 ```js
 var modal = new ModalWindow('An alert will be shown after closing this window.');
 
