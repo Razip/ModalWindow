@@ -1,11 +1,11 @@
 document.getElementById('simple').onclick = function () {
-    new ModalWindow('Now you can close it by clicking off the window.').show()
+    new ModalWindow('Now you can close it by clicking off the window.');
 };
 
 document.getElementById('countdown').onclick = function () {
     var window = new ModalWindow('The countdown will start in one second.');
 
-    window.show().lock();
+    window.lock();
 
     var i = 10;
 
@@ -22,4 +22,14 @@ document.getElementById('countdown').onclick = function () {
             clearInterval(interval);
         }
     }, 1000);
+};
+
+document.getElementById('callback').onclick = function() {
+    new ModalWindow('An alert will be shown after closing this window.').onClose(function() {
+        alert('See?');
+    });
+};
+
+document.getElementById('movable').onclick = function() {
+    new ModalWindow('Drag and drop this window.', true);
 };
