@@ -2,7 +2,7 @@
 
 ModalWindow is an open source JavaScript-library that provides a simple interface of working with modal windows. It has no dependencies and it uses pure JavaScript only.
 
-# License?
+# License
 
 Please, read LICENSE file.
 
