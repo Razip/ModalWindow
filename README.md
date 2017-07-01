@@ -4,22 +4,22 @@ ModalWindow is an open source JavaScript-library that provides a simple interfac
 
 # License
 
-Please, read LICENSE file.
+Proceed to LICENSE file.
 
 # A simple usage example
 
 ```js
-new ModalWindow('Hello').show()
+new ModalWindow('Hello, world!').show();
 ```
 
-# How do I customize my window?
+# Customizing a window
 
 All ModalWindows' objects have following properties that contain DOM-elements:
 
-* layout - it contains all the elements listed below
-* overlay - by default, makes the background behind a window gray
-* window - defines the window's appearance
-* content - defines the window's content appearance
+* `layout` contains all the elements listed below
+* `overlay` makes the background behind a window gray by default
+* `window` defines the window's appearance
+* `content` defines the window's content appearance
 
 For example, in order to increase your window's font size, you can do following: 
 
@@ -31,16 +31,50 @@ modal.content.style.fontSize = '35px';
 modal.show();
 ```
 
-# How do I lock (and unlock) a window?
+# Locking and unlocking windows
 
 ```js
 var modal = new ModalWindow("It is impossible to close this window so don't even try to");
 
 modal.lock();
 
-modal.unlock();
+//modal.unlock();
 ```
 
-# Where can I see it in action?
+# Hiding and showing
+
+```js
+var modal = new ModalWindow('Can you see me?');
+
+modal.hide();
+
+//modal.show();
+```
+
+# Making windows movable and vice versa
+
+You can make a window movable either setting ModalWindow's second parameter to `true` or by calling the `allowMoving` method.
+
+```js
+//var modal = new ModalWindow("It seems like you can move me", true);
+
+var modal = new ModalWindow("It seems like you can move me");
+
+modal.allowMoving();
+
+//modal.denyMoving();
+```
+
+# Setting a callback
+
+```js
+var modal = new ModalWindow('An alert will be shown after closing this window.');
+
+modal.onClose(function () {
+    alert('Ta-da!');
+});
+```
+
+# Where to see it in action?
 
 [Here](http://razip.github.io/ModalWindow/).
