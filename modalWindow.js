@@ -186,10 +186,9 @@ ModalWindow.prototype.setContent = function (content, centralizeMovable, keepMov
         }
     }
 
-    this.window.style.width = this.window.style.height = '';
+    this.window.style.width = '';
 
     this.window.style.width = this.window.clientWidth + 'px';
-    this.window.style.height = this.window.clientHeight + 'px';
 };
 
 ModalWindow.prototype.onCloseCallback = function () {
