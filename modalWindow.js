@@ -141,6 +141,15 @@ ModalWindow.prototype.close = function () {
     }
 };
 
+ModalWindow.prototype.recalculateWidth = function () {
+    // if we don't unset the width here, we would
+    // get the last width, not the current one
+    // when using "getBoundingClientRect().width"
+    this.window.style.width = '';
+
+    this.window.style.width = this.window.getBoundingClientRect().width + 'px';
+};
+
 ModalWindow.prototype.centralize = function () {
     var left = (document.documentElement.clientWidth - this.window.offsetWidth) / 2;
 
@@ -164,11 +173,7 @@ ModalWindow.prototype.setContent = function (content, centralizeMovable, keepMov
     if (!this.movable || this.movable && centralizeMovable) {
         this.content.innerHTML = content;
 
-        // we unset the width to get actual content's
-        // width, not the one we've set before
-        this.window.style.width = '';
-
-        this.window.style.width = this.window.clientWidth + 'px';
+        this.recalculateWidth();
 
         this.centralize();
     } else {
@@ -183,17 +188,19 @@ ModalWindow.prototype.setContent = function (content, centralizeMovable, keepMov
 
             this.content.innerHTML = content;
 
+            this.recalculateWidth();
+
             this.window.style.left = (this.cursorX - this.window.clientWidth / 100 * percentInLeft) + 'px';
 
             this.window.style.top = (this.cursorY - this.window.clientHeight / 100 * percentInTop) + 'px';
         } else {
             // similarly, we keep the ration until it's been asked to not
+
             this.content.innerHTML = content;
+
+            this.recalculateWidth();
         }
 
-        this.window.style.width = '';
-
-        this.window.style.width = this.window.clientWidth + 'px';
     }
 };
 
