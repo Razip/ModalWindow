@@ -168,7 +168,7 @@ ModalWindow.prototype.setContent = function (content, centralizeMovable, keepMov
         // width, not the one we've set before
         this.window.style.width = '';
 
-        this.window.style.width = this.window.clientWidth + 'px';
+        this.window.style.width = this.window.getBoundingClientRect().width + 'px';
 
         this.centralize();
     } else {
@@ -193,7 +193,7 @@ ModalWindow.prototype.setContent = function (content, centralizeMovable, keepMov
 
         this.window.style.width = '';
 
-        this.window.style.width = this.window.clientWidth + 'px';
+        this.window.style.width = this.window.getBoundingClientRect().width + 'px';
     }
 };
 
